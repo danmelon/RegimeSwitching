@@ -2,7 +2,8 @@ git init (for new folders outside of current)
 git remote add origin <repository location>
 
     > May need to do this if above doesn't work: git pull origin main --rebase
-git touch
+
+touch
 git status
 git pull (combo of git fetch and git merge)
 git branch [name]

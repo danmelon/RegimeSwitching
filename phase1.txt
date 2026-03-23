@@ -1,0 +1,41 @@
+Phase 1:
+
+Goal is to go from raw price data to clean, informative feature matrix that our regime models can learn from.
+
+> Regime models don't just look at raw prices... 
+    > They look at statistical properties of returns that tend to be stable within a regime and shift when a regime changes.
+
+> Step 1:
+    > Download raw price data using yfinance
+
+> Step 2:
+    > Log returns
+        > Raw prices are non-stationary (they trend upward forever), which breaks most statistical models.
+            > Log returns r_t = ln(P_t / P_{t-1}) are approximately stationary, time-additive and close to normally distributed.
+                > These are exactly the assumptions that HHMs and MS models assume.
+
+> Step 3:
+    > Feature Engineering
+        > Model needs features that actually change between regimes:
+            > rolling_vol - standard deviation of returns over a 21-day window
+            > rolling_return - mean return over a 21-day window
+            > rolling_skew - negative skew tends to cluster in crisis regimes
+            > vix_level - if we include the VIX (vol index) data, it is generally accepted as a direct fear guage
+            > yield_spread - (10Y-2Y) - inverted yield curves historically precede recessions
+    
+> Step 4:
+    > Cleaning
+        > Rolling windows introduce NaN data for the first 21 rows, so we need to drop such rows.
+            > Also might be worth 'winsorising' extreme outliers (replace the instances with datapoints falling within 5-95 percentile)
+
+> Step 5:
+    > Standardisation
+        > HMMs estimate Gaussian distributions, so scale matters...
+            > StandardScaler is a scikit-learn tool which standardises features by removing the mean and scaling it to unit variance.
+                > StandardScaler should be fit only on the training set to avoid look-ahead bias.
+
+Step 6:
+    > Train/test split
+        > Must be chronological
+            > pre 2020 training and post 2020 is out of sample test
+
