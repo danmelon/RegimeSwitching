@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from hmmlearn.hmm import GaussianHMM
 
-def run(train_scaled, test_scaled, train, test, prices):
+def run(train_scaled, test_scaled, train, test, prices, scaler):
 
     # ── Prepare observation matrix ────────────────────────────────
     obs_cols = ["spy_ret", "vol_21d"]
@@ -38,15 +38,13 @@ def run(train_scaled, test_scaled, train, test, prices):
     test_regimes  = pd.Series([label_map[s] for s in test_states],  index=test.index)
 
     # ── Inspect learned parameters ────────────────────────────────
-    scaler_mean = train_scaled.mean().values
-    scaler_std  = train_scaled.std().values
-    col_idx     = {c: i for i, c in enumerate(obs_cols)}
+    col_idx = {c: i for i, c in enumerate(obs_cols)}
 
     for state, name in [(bull_state, "Bull"), (bear_state, "Bear")]:
-        i_ret = col_idx["spy_ret"]
-        i_vol = col_idx["vol_21d"]
-        raw_mean_ret = means[state, i_ret] * scaler_std[i_ret] + scaler_mean[i_ret]
-        raw_mean_vol = means[state, i_vol] * scaler_std[i_vol] + scaler_mean[i_vol]
+        i_ret = list(train.columns).index("spy_ret")
+        i_vol = list(train.columns).index("vol_21d")
+        raw_mean_ret = scaler.mean_[i_ret] + means[state, obs_cols.index("spy_ret")] * scaler.scale_[i_ret]
+        raw_mean_vol = scaler.mean_[i_vol] + means[state, obs_cols.index("vol_21d")] * scaler.scale_[i_vol]
         print(f"\n{name} regime (state {state}):")
         print(f"  Mean daily return : {raw_mean_ret*100:.3f}%")
         print(f"  Mean ann. vol     : {raw_mean_vol*100:.1f}%")

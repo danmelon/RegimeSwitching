@@ -22,3 +22,40 @@ HMM has three components:
 > The Viterbi algorithm:
     > Decodes the single most likely sequence of hidden states given all the observed returns.
         > This is what gives you the regime label for each day.
+
+
+Notes on results:
+    > Converged: True
+    > Log-Likelihood: -8353.89
+
+    Transition matrix:
+            >Bull    >Bear
+    Bull->  0.993   0.007
+    Bear->  0.014   0.986
+
+    > This matrix shows us that the regimes are very persistent (what we want as explained previously)
+
+    Bull regime (state 0):
+    Mean daily return : 2.372%
+    Mean ann. vol     : -51.3%
+
+    Bear regime (state 1):
+    Mean daily return : -4.404%
+    Mean ann. vol     : 95.3%
+
+        > bull +ve returns, bear -ve returns. As expected.
+        > Annualised vol number odd... -51% in bull and +95% in bear...
+            > bear vol realistic since we saw 80-100% annualised vol in '08.
+            > However, negative vol is a sign of the inverse scaling going wrong when we unscale vol_21d.
+                > cosmetic bug in param printing... just recovering the original units incorrectly.
+                    > Fix using scalar  object directly, rather than manually computing.
+
+                    >>>Bull regime (state 0):
+                        Mean daily return : 0.053%
+                        Mean ann. vol     : 10.2%
+
+                    >>>Bear regime (state 1):
+                        Mean daily return : -0.016%
+                        Mean ann. vol     : 24.7%
+                    
+                    > As expected.
