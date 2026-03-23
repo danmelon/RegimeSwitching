@@ -11,3 +11,5 @@ git checkout [name]
 git add -A
 git commit -m "some text"
 git push origin [branch - usually main for me since I'm solo]
+
+rename using: git mv <old name> <new name>
