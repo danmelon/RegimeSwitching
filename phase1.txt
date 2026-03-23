@@ -39,3 +39,13 @@ Step 6:
         > Must be chronological
             > pre 2020 training and post 2020 is out of sample test
 
+
+Notes (post code):
+    > Mean 0, std 1, as expected.
+    > Comparing Max values to Min values:
+        > vol_21d: max is 5.616 standard deviations from mean
+            > similar with vix_level...
+                > Regimes often defined by these tail events.
+    > mom_21d skewed left (min -3.85, max 2.36), indicates large momentum collapses are prominent.
+    > vol_21d skewed right - massive skew, so likely to be a primary identifier for high vol regimes.
+    > spy_ret pretty balanced. Typical for normalised returns.

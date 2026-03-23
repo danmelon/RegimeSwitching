@@ -1,0 +1,24 @@
+Phase 2 -- Hidden Markov Model:
+
+Core idea:
+
+We never directly observe which regime the market is in. We only observe returns. The regime is <hidden>.
+    > The HMM tries to infer that hidden state from the pattern of observations.
+
+HMM has three components:
+
+> The transition matrix:
+    > Governs how regimes switch.
+    > A realistic bull regime might have a 97% chance of staying bull tomorrow & only 3% flipping to bear.
+        > Persistence given by the model is key.
+            > If we find the model flipping every few days, it has merely learned noise.
+
+> The emission distributions:
+    > Describe what returns look like given the regime.
+        > The bull regime emits returns from a Gaussian with positive mean and low variance.
+        > The bear regime emits from a Gaussian with negative mean & high variance.
+            > The model learns these parameters from the data via the Baum-Welch algorithm (expectation-maximisation)
+    
+> The Viterbi algorithm:
+    > Decodes the single most likely sequence of hidden states given all the observed returns.
+        > This is what gives you the regime label for each day.
