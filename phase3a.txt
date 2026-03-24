@@ -1,0 +1,9 @@
+Markov Switching Model
+
+> The HMM we just built is a generative model - that means it models the full joint distribution of returns & volatility.
+> The Markov Switching (MS) regression from statsmodels is a regression model.
+    > It asks: "What is the mean and variance of returns in each regime?" and fits that directly via maximum likelihood, with standard error & t-statistics.
+        > Also gives us AIC and BIC scores for model comparison (we use this in phase 4)
+
+> Note, unlike the HMM, the MS model takes raw unscaled returns as input
+    > statsmodels handles the estimation internally and scaling would distort the interpretable parameter values.
