@@ -7,3 +7,75 @@ Markov Switching Model
 
 > Note, unlike the HMM, the MS model takes raw unscaled returns as input
     > statsmodels handles the estimation internally and scaling would distort the interpretable parameter values.
+
+
+RESULTS:
+
+ Markov Switching Model Results                        
+==============================================================================
+Dep. Variable:                spy_ret   No. Observations:                 4366
+Model:               MarkovRegression   Log Likelihood               14514.249
+Date:                Tue, 24 Mar 2026   AIC                         -29016.498
+Time:                        20:26:32   BIC                         -28978.208
+Sample:                             0   HQIC                        -29002.985
+                               - 4366                                         
+Covariance Type:               approx                                         
+                             Regime 0 parameters                              
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.0007      0.000     -1.912      0.056      -0.001    1.73e-05
+sigma2         0.0002   8.58e-06     24.592      0.000       0.000       0.000
+                             Regime 1 parameters                              
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.0009      0.000      7.732      0.000       0.001       0.001
+sigma2       3.27e-05   1.45e-06     22.585      0.000    2.99e-05    3.55e-05
+                         Regime transition parameters                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+p[0->0]        0.9717      0.005    189.149      0.000       0.962       0.982
+p[1->0]        0.0186      0.003      5.371      0.000       0.012       0.025
+==============================================================================
+
+Warnings:
+[1] Covariance matrix calculated using numerical (complex-step) differentiation.
+
+Bull regime: state 1
+  Mean daily return : 0.093%
+  Ann. vol          : 9.1%
+
+Bear regime: state 0
+  Mean daily return : -0.068%
+  Ann. vol          : 23.1%
+
+Expected bull duration : 35 trading days
+Expected bear duration : 54 trading days
+
+AIC : -29016.50
+BIC : -28978.21
+
+
+
+> Bull regime numbers show, slow, calm, uptrend.
+> Bear regime show high-vol negative returns which we would expect.
+> 6x variance ratio between the two regimes? > strong separation
+
+> Statistical significance is nothing...
+> Transition probabilities:
+    > p[0->0] of 0.9717 means bear regime is persistent.
+        > Duration numbers contain an error
+            > Expected bull duration of 35 days seems too short.
+            
+> AIC/BIC are the numbers that we use to evaluate and compare models - they should be fairly close together.
+    > Akaike Information Criterion
+    > Bayesian Information Criterion
+        > Lowest value is the best. > more negative the better for us.
+        > Both penalise complex models to avoid overfitting the model.
+        > Based on concept of maximum likelihood estimation
+            > -2*logLikelihood aka -2LL
+                > The AIC & BIC are related to the mean square error
+                    > Maximise likelihood, minimise error
+

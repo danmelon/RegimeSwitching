@@ -42,8 +42,8 @@ def run(train, test, prices):
     p00 = ms_result.params["p[0->0]"]
     p10 = ms_result.params["p[1->0]"]
     p11 = 1 - p10
-    print(f"\nExpected bull duration : {1/(1-p00):.0f} trading days")
-    print(f"Expected bear duration : {1/(1-p11):.0f} trading days")
+    print(f"\nExpected bull duration : {1/(1-p11):.0f} trading days")
+    print(f"\nExpected bear duration : {1/(1-p00):.0f} trading days")
     print(f"\nAIC : {ms_result.aic:.2f}")
     print(f"BIC : {ms_result.bic:.2f}")
 
