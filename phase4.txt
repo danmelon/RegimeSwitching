@@ -67,4 +67,45 @@ MS strategy:
             > fillna(0) is silently filling the entire test period with bull signals.
                 > Need to fit the model on the full series.
 
+                > We replace lines 92-99 in regime_evaluate.py with:
+                    # ── 3. Backtest (MS SECTION REPLACEMENT) ──────────────────────
+    
+                    # 1. Get the "Bull" and "Bear" mean returns from your fitted MS model
+                    # Note: Statsmodels stores these in the .params attribute
+                    try:
+                        # We try to pull the mean (intercept) for each state
+                        mu_bull = ms_result.params[f'const[{ms_bull_state}]']
+                        mu_bear = ms_result.params[f'const[{ms_bear_state}]']
+                        
+                        # 2. Create a "Midpoint" threshold
+                        # If today's return is closer to the Bear mean, we call it a Bear day
+                        midpoint = (mu_bull + mu_bear) / 2
+                        
+                        # 3. Assign regimes (1 = Bear if return is below midpoint, else 0)
+                        # This bypasses the SVD math error entirely
+                        ms_test_aligned = (test["spy_ret"] > midpoint).astype(int)
+                        
+                    except Exception as e:
+                        print(f"Shortcut failed ({e}), defaulting to Buy & Hold.")
+                        ms_test_aligned = pd.Series(0, index=test.index)
+
+                    # 4. Run the backtest using these new regimes
+                    ms_cum, _ = backtest(ms_test_aligned, spy_ret_test, "MS strategy")
+
+        > Orginially our ms_test_aligned = ms_test_regimes.reindex(test.index).fillna(0) was asking pandas to look at training results
+            > In training results find dates for Test period (they would obvs not be found because we split the data chronolocically)
+                > Filled every single value in the column wiht 0 because they all NaN
+                > Since 0 meant buy, it just bought on the first day and never sold
+            > Instead of asking model to calc probabilities for new data, we ask:
+                > "What did you learn about the states during training"?
+                    > Pull mu_bull (average return during bull run)
+                    > Pull mu_bear (average return during bear run)
+            > Calculate 'midpoint'
+                > If bull mean = +0.1% and bear mean = -0.2%, midpoint = -0.05%.
+                    > This is our line in the sand
+            > Instead of re-indexing old data (which was empty), we apply the above line in the sand/threshold to the live returns of test set
+                > Now each day in test set is compared to midpoint
+                > If market is crashing, return is below midpoint and assign bear case (1).
+                > Because we now have actual 1's and 0's in our test data, the strategy finally moves properly.
+
 
