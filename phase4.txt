@@ -109,3 +109,7 @@ MS strategy:
                 > Because we now have actual 1's and 0's in our test data, the strategy finally moves properly.
 
 
+    > results somewhat inconsistent? We add in a monte-carlo analysis.
+    > Quite difficult to implement.
+
+
