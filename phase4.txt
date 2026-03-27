@@ -6,3 +6,65 @@ Backtesting the strategy:
         
         > This isolates whether the regime signal has economic value
             > If the Sharpe ratio beats buy-and-hold, the model is doing something useful
+
+
+Results:
+
+=======================================================
+STATISTICAL FIT
+=======================================================
+MS  model — AIC : -29478.59  |  BIC : -29440.30
+HMM model — AIC/BIC not directly available (use log-likelihood)
+
+=======================================================
+REGIME QUALITY
+=======================================================
+
+HMM (train set):
+  Bull days     : 2837 (65.0%)
+  Bear days     : 1529 (35.0%)
+  Regime switches : 37
+  Avg bull run  : 149 days
+  Avg bear run  : 80 days
+
+MS model (train set):
+  Bull days     : 4325 (99.1%)
+  Bear days     : 41 (0.9%)
+  Regime switches : 76
+  Avg bull run  : 114 days
+  Avg bear run  : 1 days
+
+=======================================================
+BACKTEST — out of sample (test set)
+=======================================================
+
+HMM strategy:
+  Total return (strategy)   : 78.5%
+  Total return (buy & hold) : 76.6%
+  Sharpe (strategy)         : 1.38
+  Sharpe (buy & hold)       : 0.72
+  Max drawdown (strategy)   : -10.5%
+  Max drawdown (buy & hold) : -25.3%
+
+MS strategy:
+  Total return (strategy)   : 76.6%
+  Total return (buy & hold) : 76.6%
+  Sharpe (strategy)         : 0.72
+  Sharpe (buy & hold)       : 0.72
+  Max drawdown (strategy)   : -25.3%
+  Max drawdown (buy & hold) : -25.3%
+
+
+> Sharpe ratio of 1.38 is good from the HMM strategy - > when we look at graph we can see it avoids large drawdowns.
+    > Max drawdown cut from 25.3 to 10.5.
+    > Slightly higher return.
+        > By how much could this return be increased by buying bonds with 4% yield during these times?
+> MS strategy is completely degenerate - just tracks the buy and hold exactly... it calcs 99.1% bull days and 41 bear days...
+    > Clearly not close to reality... also thinks average bear run is 1 day...
+    > MS model on the test set is essentially never calling a bear regime... so train is just using that lesson.
+    > Strategy look-ahead bias... MS model's filtered probabilities are computed on the training set only
+        > When we try to reindex them onto the test set, they don't exist.
+            > fillna(0) is silently filling the entire test period with bull signals.
+                > Need to fit the model on the full series.
+
+

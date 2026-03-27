@@ -21,7 +21,6 @@ def run(train, test, prices):
         switching_variance=True   # separate variance per regime
     )
     ms_result = ms_model.fit(search_reps=20, disp=False)
-
     print(ms_result.summary())
 
     # ── Identify bull vs bear by mean return ──────────────────────

@@ -84,4 +84,4 @@ def run(train_scaled, test_scaled, train, test, prices, scaler):
     plt.savefig("outputs/hmm_regimes.png", dpi=150)
     plt.show()
 
-    return all_regimes, model
+    return all_regimes, model, bull_state, bear_state
