@@ -1,0 +1,8 @@
+Essentially, here we are finding out the economic value of the model.
+Backtesting the strategy:
+    > Simple:
+        > Long S&P500 in bull regimes
+        > Move to cash in bear regimes
+        
+        > This isolates whether the regime signal has economic value
+            > If the Sharpe ratio beats buy-and-hold, the model is doing something useful
