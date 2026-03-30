@@ -146,3 +146,25 @@ MS strategy:
     > 134% vs 76% for buy and hold is a very large gap given the shorter test period.
         > Likely means the rules-based threshold is frequently calling bear on slightly negative days.
             > Acts more as a momentum filter than a true regime detector.
+
+Also got the below backtest results:
+
+=======================================================
+BACKTEST — out of sample (test set)
+=======================================================
+
+HMM strategy:
+  Total return (strategy)   : 78.5%
+  Total return (buy & hold) : 76.6%
+  Sharpe (strategy)         : 1.38
+  Sharpe (buy & hold)       : 0.72
+  Max drawdown (strategy)   : -10.5%
+  Max drawdown (buy & hold) : -25.3%
+
+MS strategy:
+  Total return (strategy)   : 73.6%
+  Total return (buy & hold) : 76.6%
+  Sharpe (strategy)         : 0.89
+  Sharpe (buy & hold)       : 0.72
+  Max drawdown (strategy)   : -16.5%
+  Max drawdown (buy & hold) : -25.3%
