@@ -145,4 +145,4 @@ MS strategy:
 
     > 134% vs 76% for buy and hold is a very large gap given the shorter test period.
         > Likely means the rules-based threshold is frequently calling bear on slightly negative days.
-            > Acts more as a momentum filter.
+            > Acts more as a momentum filter than a true regime detector.
