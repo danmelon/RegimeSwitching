@@ -1,0 +1,25 @@
+The Mathematics of Markovitz's idea that for a given level of return, find the portfolio with the lowest possible risk / vice versa:
+
+The 3 things we need to build a portfolio optimiser:
+
+    > Return of a portfolio is just the weighted average of each asset's return:
+        = w_1 * r_1 + w_2 * r_2 + ... + w_n * r_n
+        > Where w is the weight in each asset and r is that asset's expected return (these weights must sum to 1)
+    
+    > Risk of a portfolio is NOT the weighted average of each asset's volatility (this would ignore the correlation effect).
+        > The true portfolio variance is:
+            = w^T(sigma(w))
+            > Where sigma is the covariance matrix.
+                > Table that captures each asset's variance on the diagonal, and the covatiance (correlation x vol x vol) betweem every pair of assets off the diagonal.
+    
+    > The Sharpe ratio (what we optimise)
+        = (portfolio return - risk free rate) / portfolio volatility
+        > Maximising this gives you the portfolio with the best return per unit of risk.
+
+The efficient frontier:
+    > Is the point where portfolio's cannot generate greater expected return without incurring greater risk,
+    > Cannot reduce risk without sacrificing returns.
+    > The maximum Sharpe portfolio sits on the frontier.
+    > The frontier is built entirely from the expected returns vector and the covatiance matrix.
+        > In a bull regime we use bull-period returns & covariances, and in bear regime we use bear period ones.
+            > Result is two diffrent frontiers & subsequently, two different optimal portfolios.
