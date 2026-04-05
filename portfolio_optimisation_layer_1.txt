@@ -1,0 +1,26 @@
+Imagine we have £100 to invest and two choices - Apple stock and US treasury bonds.
+    > Apple might return 15% per year on average but swings wildly. 
+    > Bonds return 3% per year but are rock steady.
+    
+Markovitz's insight in 1952 is that the optimal split depends on how the two assets move relative to each other.
+
+If we have a perfect correlation (+1.0) between apple and bonds:
+    > Splitting between these two does nothing.
+        > When one falls, so does the other.
+            > We get no protection from diversification.
+
+If there were 0 correlation:
+    > Splitting helps:
+        > Bad days for apple are not bad days for bonds.
+        > Portfolio is smoother than either asset alone.
+
+If there was a perfect negative correlation (-1.0):
+    > One asset goes up, while the other goes down.
+    > The right mix can eliminate risk almost entirely, while keeping a positive return.
+
+The correlation between stocks and bonds is not constant, it changes dramatically between regimes.
+    > In bull markets, stocks go up, bonds stay flat or drift down slightly.
+    > In bear markets, sometimes stocks crash and investors flee to bonds.
+        > Sometimes (like when there is an inflation driven crash), both bonds and stocks fall together (+ve correlation)
+
+>> A portfolio optimised on average correlations is wrong in both regimes.
