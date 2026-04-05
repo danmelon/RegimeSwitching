@@ -1,0 +1,18 @@
+Portfolio optimisation in relation to our regime switching strategy is quite simple:
+    > Right now, we're either fully invested in the market or fully invested in cash.
+    > Portfolio optimisation asks: given what we know about each regime, what is the best mix of assets.
+
+> Layer 1: The Problem - 
+    > What does it mean to optimise a portfolio? Trade-offs between return and risk & why holding multiple assets helps.
+
+> Layer 2: Mean-variance optimisation -
+    > Markovitz's 1952 framework, the foundation of modern portfolio theory.
+        > Efficient frontier and Sharpe-maximising portfolio.
+
+> Layer 3: Regime conditioning - 
+    > What is the optimal strategy for bull vs bear regime statistics.
+        > Regime probability from our HMM determines how much weight to give to each asset.
+
+> Layer 4: Implementation - 
+    > use scipy for optimisation plugging directly into the models we've already built.
+    
