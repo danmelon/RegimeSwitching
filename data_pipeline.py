@@ -6,8 +6,14 @@ from sklearn.preprocessing import StandardScaler
 def run():
 
     # ── 1. Download data ──────────────────────────────────────────────
-    tickers = {"spy": "^GSPC", "vix": "^VIX", "bonds": "TLT"}
-    raw = {name: yf.download(ticker, start="2000-01-01", end="2024-12-31",
+    tickers = {
+    "spy":  "^GSPC",
+    "qqq":  "QQQ",
+    "tlt":  "TLT",
+    "gld":  "GLD",
+    "vix":  "^VIX"
+}
+    raw = {name: yf.download(ticker, start="2005-01-01", end="2024-12-31",
                             auto_adjust=True, progress=False)["Close"].squeeze()
         for name, ticker in tickers.items()}
 
@@ -36,7 +42,7 @@ def run():
     features["vix_level"]   = prices["vix"].reindex(features.index)
 
     # Yield-curve proxy: TLT return as bond-equity divergence
-    features["bond_ret_21d"] = returns["bonds_ret"].rolling(W).mean()
+    features["bond_ret_21d"] = returns["tlt_ret"].rolling(W).mean()
 
     # Attach raw SPY return for modelling
     features["spy_ret"]     = returns["spy_ret"]
