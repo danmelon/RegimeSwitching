@@ -1,0 +1,17 @@
+Instead of building one portfolio and holding it forever...
+    > build two portfolios, one optimised for bull market, one optimised for bear market.
+        > Then let the HMM tell you how much weight to put on each at any given moment.
+
+> On a day when the HMM says P(bull) = 0.82, our portfolio would be 82% of the way towards a bull-optimised portfolio.
+> On a day where P(bull) = 0.5, hold a portfolio that is exactly half way between optimal bull & optimal bear portfolio.
+
+> This can reduce issues related to transaction costs - if just doing a binary bull/bear portfolio, you have to fully divest/buy which is expensive.
+
+Implementation:
+    > First, use HMM regime labels to split the historical data, into bull and bear days.
+        > Then compute the mean returns vector and covariance matrix separately for each subset.
+    > Second, run a Sharpe-maximising optimiser (scipy.optimize) on each set of regime statistics to find the optimal weights for bull and bear portfolios independently.
+    > Third, at each point in the backtest, blend the two weight vectors using that day's HMM probability & compute the portfolio return.
+
+> We will add in another couple of assets to ensure our optimisation gives us meaningful results:
+    > Gold, and QQQ.
