@@ -1,0 +1,55 @@
+=======================================================
+REGIME-CONDITIONAL STATISTICS (train set)
+=======================================================
+
+Bull regime — 2468 days
+  Annualised returns:
+    SPY : 13.5%
+    QQQ : 19.9%
+    TLT : 1.1%
+    GLD : 2.5%
+  Correlation matrix:
+      spy   qqq   tlt   gld
+spy  1.00  0.88 -0.28  0.08
+qqq  0.88  1.00 -0.23  0.03
+tlt -0.28 -0.23  1.00  0.16
+gld  0.08  0.03  0.16  1.00
+
+Bear regime — 1286 days
+  Annualised returns:
+    SPY : -6.4%
+    QQQ : -1.8%
+    TLT : 15.5%
+    GLD : 19.2%
+  Correlation matrix:
+      spy   qqq   tlt   gld
+spy  1.00  0.94 -0.51  0.00
+qqq  0.94  1.00 -0.47 -0.02
+tlt -0.51 -0.47  1.00  0.10
+gld  0.00 -0.02  0.10  1.00
+
+=======================================================
+OPTIMAL PORTFOLIO WEIGHTS
+=======================================================
+
+Bull portfolio (max Sharpe):
+  SPY : 0.0%
+  QQQ : 83.6%
+  TLT : 16.4%
+  GLD : 0.0%
+
+Bear portfolio (max Sharpe):
+  SPY : 0.0%
+  QQQ : 10.7%
+  TLT : 55.0%
+  GLD : 34.2%
+
+=======================================================
+BLENDED PORTFOLIO BACKTEST (test set)
+=======================================================
+
+Strategy                       Return   Sharpe   Max DD
+-------------------------------------------------------
+Blended regime portfolio        87.2%     0.95   -29.9%
+Equal weight (SPY/QQQ/TLT/GLD)    47.5%     0.65   -27.1%
+SPY buy and hold                62.9%     0.56   -36.1%
