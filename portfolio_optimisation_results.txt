@@ -53,3 +53,38 @@ Strategy                       Return   Sharpe   Max DD
 Blended regime portfolio        87.2%     0.95   -29.9%
 Equal weight (SPY/QQQ/TLT/GLD)    47.5%     0.65   -27.1%
 SPY buy and hold                62.9%     0.56   -36.1%
+
+
+
+
+Notes:
+
+Correlation matrices:
+  > Relation between stocks & bonds goes from -0.28 in bull markets, to -0.51 in bear markets.
+  > Bonds become a much stronger diversifier exactly when we need them most (good!).
+  > Gold has essentially 0 correlation in both regimes - gives strength to our assumption that it is a diversifier rather than crisis hedge...
+  > SPY/QQQ correlation increases in bear markets, suggesting equities become more homogenous during stress.
+
+Optimal Weights:
+  > Bull portfolio moves heavily into QQQ because it has the highest return with acceptable correlation to bonds.
+  > Bear portfolio rotates dramatically - 55% TLT, 32.4% gold. SPY gets 0 weight in both regimes since QQQ gives better returns in bull markets.
+
+Backtest:
+  > Blended portfolio returns 87.2% with much better Sharpe.
+  > Max drawdown is -29.9% vs equal weight dd of -27.1%... slightly surprising.
+    > Why could this be the case?
+  
+> Blended portfolio Sharpe of 0.95 is lower than the HMM strategy from Phase 4 (1.38).
+  > New portfolio taking on more multi-asset risk.
+  > Binary strategy had much lower drawdown because of its move to cash.
+
+> Do we care more about absolute returns? or risk adjusted performance?
+  > Depends on the person. Our optimised portfolio can give better returns, but at the cost of 'risk-adjusted returns'.
+
+
+Further exploration:
+  > Could increase the universe of assets
+    > However, this would lead to massive matrices and a large number of unique values (50 assets would give 50x50 matrix with 1275 unique vals).
+      > But we still only have a limited number of bear regime days.
+        > When the number of parameters approaches or exceeds observations, the covariance matrix becomes unstable.
+          > We can overcome with technique called covariance shrinkage (Ledoit-Wolf estimator).
